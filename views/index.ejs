@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Theme Ecommerce</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button id="menu-toggle-btn" class="icon-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1 class="logo">Ecommerce</h1>
+        </div>
+        
+        <div class="search-container">
+            <input type="search" placeholder="search">
+            <i class="fa-solid fa-search search-icon"></i>
+        </div>
+        
+        <div class="header-right">
+            <button id="login-open-btn" class="nav-btn">Login</button>
+            <button id="signup-open-btn" class="nav-btn">Sign Up</button>
+            <button id="cart-open-btn" class="icon-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+        </div>
+    </header>
+
+    <nav id="side-panel">
+        <button id="side-panel-close-btn" class="close-btn">&times;</button>
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="/secure-route">Books</a></li>
+            <li><a href="#">Tech</a></li>
+            <li><a href="#">Apparel</a></li>
+            <li><a href="#">Home Goods</a></li>
+            <li><a href="#">Sports</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="product-grid">  
+            <!--<article class="product-card">
+                <img src="/img/joinha.png" alt="Product Image">
+                <div class="product-info">
+                    <h3>Fake Product</h3>
+                    <p class="price">$29.99</p>
+                    <p class="description">A placeholder description for this product that does not exist.</p>
+                    <p class="stock out-of-stock">Out of Stock</p>
+                </div>
+            </article>-->
+        </div>
+    </main>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <button id="login-close-btn" class="close-btn">&times;</button>
+            <h2>Login</h2>
+            <form action="/login" method="post" id="login-form">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                
+                <button type="submit" class="submit-btn">Login</button>
+                <p>Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <button id="signup-close-btn" class="close-btn">&times;</button>
+            <h2>Sign Up</h2>
+            <form action="/signup" method="post" id="signup-form">
+              <label for="signup-name">Name</label>
+              <input type="text" id="signup-name" required>
+              
+              <label for="signup-email">Email</label>
+              <input type="email" id="signup-email" required>
+                
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" required>
+
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" required>
+                
+                <button type="submit" class="submit-btn">Create Account</button>
+                <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <button id="cart-close-btn" class="close-btn">&times;</button>
+            <h2>Your Cart</h2>
+            
+            <div class="cart-item-list"></div>
+
+            <div class="cart-footer">
+              <button class="submit-btn">Checkout</button>
+              <p id="final-value" style="margin: 0;">final value: </p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="overlay"></div>
+
+    <script src="/script.js"></script>
+    <script src="/products.js"></script>
+    <script src="/users.js"></script>
+</body>
+</html>
