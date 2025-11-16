@@ -1,0 +1,34 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "signup/signin system with jwt auth",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startMon": "nodemon -q index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ju4nstu/jwt-auth.git"
+  },
+  "author": "ju4n",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ju4nstu/jwt-auth/issues"
+  },
+  "homepage": "https://github.com/ju4nstu/jwt-auth#readme",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/jwt": "^10.0.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "fastify": "^5.6.2",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "nodemon": "^3.1.11",
+    "pg": "^8.16.3",
+    "stripe": "^19.3.1"
+  }
+}

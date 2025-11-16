@@ -1,0 +1,57 @@
+### SIGNUP
+POST http://localhost:3333/signup
+Content-Type: application/json
+
+{
+  "name": "Juan Oliveira",
+  "email": "juan@gmail.com",
+  "password": "juan.dev"
+}
+
+### LOGIN
+POST http://localhost:3333/login
+Content-Type: application/json
+
+{
+  "email": "useremail",
+  "password": "userpass"
+}
+
+### SECURE ROUTE
+GET http://localhost:3333/secure-route
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE2LCJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWF0IjoxNzYzMTUyNTkxLCJleHAiOjE3NjMxNTYxOTF9.VNj4Wg4ZSDraRdKDI1AY09SkZwpKGze04PgGOaM5s8k
+
+### PROFILE
+GET http://localhost:3333/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE2LCJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWF0IjoxNzYzMTUyNTkxLCJleHAiOjE3NjMxNTYxOTF9.VNj4Wg4ZSDraRdKDI1AY09SkZwpKGze04PgGOaM5s8k
+
+### ORDERS
+GET http://localhost:3333/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE2LCJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWF0IjoxNzYzMjQ0NDUzLCJleHAiOjE3NjMyNDgwNTN9.AtRNdkuluRWWeAlOl-MWesBeC_WrxPDDJJJlQx06KvA
+
+### PRODUCTS
+GET http://localhost:3333/products
+
+### CHECKOUT
+POST http://localhost:3333/checkout
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "name": "iPhone 15 Pro",
+    "quantity": 1,
+    "desc": "max 3",
+    "price": "999.99"
+  },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy S24",
+    "quantity": 1,
+    "desc": "max 75",
+    "price": "899.99"
+  }
+]
+
+## Juan Oliveira email: juan@gmail.com password: juan.dev Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE4LCJ1c2VybmFtZSI6Ikp1YW4gT2xpdmVpcmEiLCJpYXQiOjE3NjMyNDM5NzksImV4cCI6MTc2MzI0NzU3OX0.x7r_pzfWyHez02gBKK8yqlFpc4yMl9bHtWmIR3wzrsE
+## username Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE2LCJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWF0IjoxNzYzMjQ0NDUzLCJleHAiOjE3NjMyNDgwNTN9.AtRNdkuluRWWeAlOl-MWesBeC_WrxPDDJJJlQx06KvA
