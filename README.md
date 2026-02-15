@@ -14,3 +14,5 @@ Endpoints to list and view available products.
 
 * User order management\
 Endpoints to retrieve orders associated with the authenticated user.
+
+- Added Off Set Pagination to /products route

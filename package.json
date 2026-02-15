@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ju4nstu/jwt-auth.git"
+    "url": "git+https://github.com/ju4nstu/ecommerce-system.git"
   },
   "author": "ju4n",
   "license": "ISC",
@@ -20,7 +20,9 @@
   "homepage": "https://github.com/ju4nstu/jwt-auth#readme",
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
+    "@fastify/helmet": "^13.0.2",
     "@fastify/jwt": "^10.0.0",
+    "@fastify/rate-limit": "^10.3.0",
     "@neondatabase/serverless": "^1.0.2",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",

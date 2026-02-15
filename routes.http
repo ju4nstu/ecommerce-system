@@ -47,7 +47,7 @@ Content-Type: application/json
   {
     "id": 2,
     "name": "Samsung Galaxy S24",
-    "quantity": 1,
+    "quantity": 75,
     "desc": "max 75",
     "price": "899.99"
   }
