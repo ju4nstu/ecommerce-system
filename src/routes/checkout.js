@@ -36,7 +36,6 @@ export default async function checkout(server, opts) {
     // everytime i have a successful purchase, i need to decrement x at the stock in db.
     // if the client cancel his acquisition, increment x at the stock. 
 
-
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(finalPrice),
       currency: 'brl',

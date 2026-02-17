@@ -3,9 +3,10 @@ POST http://localhost:3333/signup
 Content-Type: application/json
 
 {
-  "name": "Juan Oliveira",
-  "email": "juan@gmail.com",
-  "password": "juan.dev"
+  "name": "Eric Cartman",
+  "email": "juan@gmail.com"
+
+  
 }
 
 ### LOGIN
@@ -13,7 +14,7 @@ POST http://localhost:3333/login
 Content-Type: application/json
 
 {
-  "email": "useremail",
+  "email": "shit@fuck.com",
   "password": "userpass"
 }
 

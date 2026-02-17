@@ -6,7 +6,10 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 
+
+
 import { AppError } from './helpers/errors.js'
+import { DefaultErrorHanlder } from './helpers/errors.js'
 import jwtAuthentication from "./plugins/authentication.js"
 import userRoutes from './routes/users.js'
 import checkout from './routes/checkout.js'
@@ -15,15 +18,7 @@ import products from './routes/products.js'
 import OffSetPagination from './helpers/pagination.js'
 
 const server = fastify()
-
-server.setErrorHandler((error, req, rep) => {
-  if (error instanceof AppError) {
-    return rep.code(error.statusCode).send({ message: error.message })
-  }
-
-  console.log(error)
-  return rep.code(500).send({ message: 'internal server error' })
-})
+DefaultErrorHanlder(server)
 
 server.register(fastifyJwt, {
   secret: process.env.JWT_SECRET_KEY

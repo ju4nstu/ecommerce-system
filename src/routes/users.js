@@ -1,41 +1,43 @@
 import db from '../config/db.js'
 import * as bcrypt from 'bcrypt'
+import { usersSchema } from '../helpers/validate_schema.js'
 import { AppError } from '../helpers/errors.js'
 import { DBErrors } from '../helpers/database_errors.js'
 
+
+
 export default async function userRoutes(server, opts) {
   
-  server.post('/signup', { preHandler: server.rateLimit({ max: 5, timeWindow: 300000 }) }, async (req, rep) => {
+  server.post('/signup', { schema: usersSchema, preHandler: server.rateLimit({ max: 5, timeWindow: 300000 }) }, async (req, rep) => {
     const { name, email, password } = req.body
-  
+
     const hash_password = bcrypt.hashSync(password, 12)
 
     try {
-      await db.raw('insert into users(name, email, password_hash) values (?, ?, ?)', [name, email, hash_password])
+      await db('users').insert({ name: name, email: email, password_hash: hash_password })
     } 
     catch(error) {
       if (error.code === DBErrors.UNIQUE_VIOLATION) {
-        throw new AppError("email already exists.")
+        throw AppError.VIOLATES_UNIQUE_CONSTRAINT(email)
       }
     }
 
     return rep.code(201).send('signed up!')
   })
   
-  server.post('/login', { preHandler: server.rateLimit({ max: 5, timeWindow: 300000 }) }, async (req, rep) => {
+  server.post('/login', { schema: usersSchema, preHandler: server.rateLimit({ max: 5, timeWindow: 300000 }) }, async (req, rep) => {
     const { email, password } = req.body
     
-    const user = await db.raw('select email, password_hash, name, id from users where email = ?', [email])
-    //console.log(user.rows[0])
+    const user = await db.select('id, name, password_hash').from('users').where('email', email)
     if (user.rows.length === 0) {
-      throw new AppError('wrong credentials', 401)
+      throw AppError.INVALID_CREDENTIALS()
     }
     
     const hash = user.rows[0].password_hash
   
     const cmp = bcrypt.compareSync(password, hash)
     if (!cmp) {
-      throw new AppError('wrong credentials', 401)
+      throw AppError.INVALID_CREDENTIALS()
     }
     
     const payload = { userid: user.rows[0].id, username: user.rows[0].name }
