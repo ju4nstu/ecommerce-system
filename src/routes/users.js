@@ -28,22 +28,24 @@ export default async function userRoutes(server, opts) {
   server.post('/login', { schema: usersSchema, preHandler: server.rateLimit({ max: 5, timeWindow: 300000 }) }, async (req, rep) => {
     const { email, password } = req.body
     
-    const user = await db.select('id, name, password_hash').from('users').where('email', email)
-    if (user.rows.length === 0) {
+    const user = await db('users').where({ email: email }).select('id', 'name', 'password_hash')
+    console.log(user[0])
+    
+    if (user[0] === undefined) {
       throw AppError.INVALID_CREDENTIALS()
     }
-    
-    const hash = user.rows[0].password_hash
+
+    const hash = user[0].password_hash
   
     const cmp = bcrypt.compareSync(password, hash)
     if (!cmp) {
       throw AppError.INVALID_CREDENTIALS()
     }
     
-    const payload = { userid: user.rows[0].id, username: user.rows[0].name }
+    const payload = { userid: user[0].id, username: user[0].name }
     console.log(payload)
   
-    const token = server.jwt.sign(payload, { expiresIn: '1h' })
+    const token = server.jwt.sign(payload, { expiresIn: process.env.JWT_TOKEN_EXPIRES_IN })
     rep.setCookie('token', token, {
       path: '/',
       secure: false,
@@ -52,7 +54,7 @@ export default async function userRoutes(server, opts) {
     .code(200)
     .send({message: 'cookie sent', jwttoken: token})
     
-    return rep.send({ username: user.rows[0].name, userid: user.rows[0].id, token: token })
+    return rep.send({ username: user[0].name, userid: user[0].id, token: token })
   })
 
   server.get('/profile', { preHandler: server.authentication }, async (req, rep) => {

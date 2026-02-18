@@ -9,7 +9,7 @@ export function DefaultErrorHanlder(server, opts) {
     if (error.validation) {
       return rep.status(422).send(new Error(error.validation[0].message))
     }
-    return rep.code(500).send({ message: 'internal server error' })
+    return rep.code(500).send({ message: 'Internal server error' })
   })
 }
 
@@ -25,5 +25,9 @@ export class AppError extends Error {
 
   static VIOLATES_UNIQUE_CONSTRAINT(name) {
     return new AppError(`${name} is already in use`, 401)
+  }
+
+  static UNAUTHORIZED() {
+    return new AppError('Unauthorized', 401)
   }
 }
