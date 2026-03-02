@@ -7,4 +7,9 @@ export default async function productsFunction(server, opts) {
     const table = "products"
     return OffSetPaginationAndSorting(req, rep, table, category_req)
   })
+
+  server.get('/products', async (req, rep) => {
+    const table = "products"
+    return OffSetPaginationAndSorting(req, rep, table, undefined)
+  })
 }
