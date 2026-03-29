@@ -1,0 +1,18 @@
+{
+  "name": "products_microservice",
+  "version": "1.0.0",
+  "description": "Product catalog service",
+  "license": "ISC",
+  "author": "ju4n",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "fastify": "^5.8.4",
+    "knex": "^3.2.7",
+    "pg": "^8.20.0"
+  }
+}
