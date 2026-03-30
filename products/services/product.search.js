@@ -1,4 +1,5 @@
 import db from '../config/db.js'
+import { AppError } from '../../src/helpers/errors.js'
 
 export async function Search(req, rep) {
   const search = req.params.input
@@ -8,6 +9,7 @@ export async function Search(req, rep) {
   .where('sku', 'ilike', `%${search}%`)
   .orWhere('product_name', 'ilike', `%${search}%`)
   
-  //console.log('search input =>', search)
-  rep.send({ result: res })
+  if (res.length === 0) throw AppError.NOT_FOUND()
+
+  return rep.send({ result: res })
 }
