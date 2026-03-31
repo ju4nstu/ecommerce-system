@@ -30,4 +30,8 @@ export class AppError extends Error {
   static UNAUTHORIZED() {
     return new AppError('Unauthorized', 401)
   }
+
+  static NOT_FOUND() {
+    return new AppError('Nothing was found', 404)
+  }
 }
