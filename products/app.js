@@ -22,9 +22,5 @@ export default function Build() {
   
   app.register(productRoutes)
 
-  app.get('/', (req, rep) => {
-    rep.send('hello world')
-  })
-
   return app
 }
