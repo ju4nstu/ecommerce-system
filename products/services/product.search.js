@@ -1,5 +1,5 @@
 import db from '../config/db.js'
-import { AppError } from '../../src/helpers/errors.js'
+import { AppError } from "../../errorHandler/errors.js"
 
 export async function Search(req, rep) {
   const search = req.params.input

@@ -1,5 +1,5 @@
 import db from "../config/db.js"
-import { AppError } from "../../src/helpers/errors.js"
+import { AppError } from "../../errorHandler/errors.js"
 
 export async function Product(req, rep) {
   const prodId = req.params.id 

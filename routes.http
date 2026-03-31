@@ -31,7 +31,10 @@ GET http://localhost:3333/orders
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjIxLCJ1c2VybmFtZSI6Ikp1YW4gT2xpdmVpcmEiLCJpYXQiOjE3NzEzNDExMTIsImV4cCI6MTgwNzM0MTExMn0.fTIiK4be9bfWbxnXk01E_KzWwnWHlFuFU3GAmDb8QWA  
 
 ### PRODUCTS
-GET http://localhost:3333/products
+GET http://localhost:3333/products/eletronics?page_number=2&page_size=3&page_sort=price
+
+###
+GET http://localhost:3333/products?page_number=3&page_size=3
 
 ### CHECKOUT
 POST http://localhost:3333/checkout

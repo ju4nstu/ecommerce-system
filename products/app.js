@@ -3,7 +3,7 @@ import fastifyHelmet from "@fastify/helmet"
 import fastifyRateLimit from "@fastify/rate-limit"
 
 import productRoutes from "./routes/product.route.js"
-import { DefaultErrorHanlder } from "../src/helpers/errors.js"
+import { DefaultErrorHanlder } from "../errorHandler/errors.js"
 
 export default function Build() {
   const app = fastify()

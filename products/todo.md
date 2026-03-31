@@ -1,6 +1,8 @@
 * list products
   * pagination
   * sorting
+    * price (default, ascending) and -price
+    * discounts
   * filtering
   * search 
     * /search/${input}

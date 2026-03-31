@@ -6,8 +6,6 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 
-
-
 import { AppError } from './helpers/errors.js'
 import { DefaultErrorHanlder } from './helpers/errors.js'
 import jwtAuthentication from "./plugins/authentication.js"

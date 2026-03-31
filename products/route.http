@@ -1,1 +1,5 @@
-localhost:8888
+http://localhost:8888/search/ryzen
+###
+http://localhost:8888/product/14
+###
+http://localhost:8888/

@@ -1,0 +1,17 @@
+Product Catalog Service
+    - Product Listing
+        - Pagination
+        - Filtering (by price, rating, brand, category, attributes)
+        - Sorting (price asc/desc, newest, bestseller, relevance)
+        - Search (full-text search, fuzzy matching — consider Elasticsearch)
+        - Product variants (size M/L/XL, color red/blue — same product, different SKUs)
+        - Product status (active, draft, archived, out of stock)
+        - Rich media (multiple images, videos per product)
+        - SEO fields (slug, meta title, meta description)
+    - Product Categories
+        - Hierarchy of categories (eletronics is father of computers; computers is father of cpu's')
+    - Product Inventory
+        - Real-time tracking, management, and storage of goods available for sale, including raw materials, finished products, and items in transit 
+    - Pricing
+    - Product Reviews & Ratings
+    - Promotions/Discounts
