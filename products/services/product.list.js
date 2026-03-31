@@ -16,8 +16,11 @@ async function Pagination(page_number, page_size, sort, rep) { // check if sort 
       ['price', { value: 'price', key: 'asc' }],
       ['-price', { value: 'price', key: 'desc' }],
     ])
+
+    if (!orderOptions.has(sort)) sort = 'price'
     const getOrder = orderOptions.get(sort)
     
+
     let offset = (page_number - 1) * page_size  
     let page = await db('product')
     .select('*')
