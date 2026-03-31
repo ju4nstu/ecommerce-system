@@ -1,15 +1,16 @@
 import db from "../config/db.js"
+import { AppError } from "../../src/helpers/errors.js"
 
 export async function List(req, rep) {
   const page_number = req.query.page_number || 1
   const page_size = req.query.page_size || 10
   const sort = req.query.sort || 'price'
 
-  const res = await Pagination(page_number, page_size, sort)
+  const res = await Pagination(page_number, page_size, sort, rep)
   return rep.send({ products: res })
 }
 
-async function Pagination(page_number, page_size, sort) { // check if sort is in map, then assign its value
+async function Pagination(page_number, page_size, sort, rep) { // check if sort is in map, then assign its value
   try {
     const orderOptions = new Map([
       ['price', { value: 'price', key: 'asc' }],
@@ -25,9 +26,11 @@ async function Pagination(page_number, page_size, sort) { // check if sort is in
     .limit(page_size)
     .offset(offset)
     
+    if (page.length === 0) throw rep.send(AppError.NOT_FOUND())
+
     return page
   } catch (error) {
-    console.log(error)
+    return rep.send(error)
   }
 }
 
