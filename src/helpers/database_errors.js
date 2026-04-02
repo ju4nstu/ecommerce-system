@@ -1,4 +1,0 @@
-export const DBErrors = {
-  UNIQUE_VIOLATION: '23505',
-  FOREING_KEY_VIOLATION: '23503',
-}

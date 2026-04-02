@@ -15,6 +15,7 @@ export default function Build() {
     timeWindow: '1 minute',
     global: true // might wanna change
   })
+  
   app.register(fastifyHelmet, {
     contentSecurityPolicy: false, // defines wheter a content is safe or not (scripts, images, styles)
     global: true // all routes has Helmet headers
