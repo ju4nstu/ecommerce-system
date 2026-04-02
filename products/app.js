@@ -20,7 +20,7 @@ export default function Build() {
     global: true // all routes has Helmet headers
   })
   
-  app.register(productRoutes)
+  app.register(productRoutes, { prefix: '/products' })
 
   return app
 }
