@@ -1,54 +1,73 @@
 import db from '../config/db.js'
 import { AppError } from '../../errorHandler/errors.js'
+import { DataBaseError } from '../../errorHandler/dbError.js'
 
+async function SelectCartId(knex, user) {
+  const cart = await knex('cart')
+  .select('cart_id')
+  .where('user_id', user)
+
+  if (!cart || !cart[0]) throw AppError.NOT_FOUND()
+
+  return cart
+}
+
+async function InsertTransaction(knex, user_id) {
+  await knex.transaction(async trx => {
+    const id = await SelectCartId(trx, user_id)
+
+    await trx('cart_items')
+    .insert({ product_id, cart_id: id[0].cart_id, quantity })
+  })
+  return rep.code(201).send({ message: 'item added to cart!' })
+}
 
 export async function CreateCart(req, rep) {
   const { user_id, product_id, quantity } = req.body
   
   try {
     await db.transaction(async trx => {
-      const cart = await trx('cart')
-      .insert({ user_id })
-      .returning('cart_id')
+      const id = await SelectCartId(trx, user_id)
       
-      const cart_items = await trx('cart_items')
-      .insert({ product_id, cart_id: cart[0].cart_id, quantity })
+      await trx('cart_items')
+      .insert({ product_id, cart_id: id[0].cart_id, quantity })
     })
     return rep.code(201).send({ message: 'item added to cart!' })
-  } catch (error) {
-    console.log(error)
+  } catch (err) {
+      if (err.code === DataBaseError.UNIQUE_CONSTRIANT) {
+        throw AppError.CART_VIOLATES_UNIQUE_CONSTRAINT()
+      } else {
+        throw err
+      }
   }
-  
 }
 
 export async function AddNewItem(req, rep) {
-  const { user_id, item_id, item_quantity } = req.body
+  const { user_id, product_id, quantity } = req.body
   
-  await db('cart') // insert with the same cart id
-  .insert({ user_id: user_id, item_id: item_id, item_quantity: item_quantity })
-  return rep.code(201).send({ message: 'item added to cart!' })
+  await db.transaction(async trx => {
+    const id = await SelectCartId(trx, user_id)
+
+    await trx('cart_items')
+    .insert({ product_id, cart_id: id[0].cart_id, quantity })
+  })
+  return rep.code(201).send({ message: 'item added to cart!' })  
 }
 
 
 export async function UpdateCart(req, rep) {
   const { user_id, product_id, quantity } = req.body
 
-  try {
-    await db.transaction(async trx => {
-      const id = await db('cart')
-      .select('cart_id')
-      .where('user_id', user_id)
-  
-      await db('cart_items')
-      .where('cart_id', id[0].cart_id)
-      .andWhere('product_id', product_id)
-      .update({ quantity })
-    })
-    return rep.send({ message: 'Cart updated!' })
-  } catch (err) {
-    console.log(err)
-  }
+  await db.transaction(async trx => {
+    const id = await SelectCartId(trx, user_id)
 
+    await trx('cart_items')
+    .where('cart_id', id[0].cart_id)
+    .andWhere('product_id', product_id)
+    .update({ quantity })
+  })
+
+  return rep.send({ message: 'Cart updated!' })
 }
 
 export async function RemoveFromCart(req, rep) {
@@ -62,36 +81,13 @@ export async function RemoveFromCart(req, rep) {
 }
 
 export async function ListItems(req, rep) {
-  try {
-    const res = await db('cart')
-    .select('*')/*.where('user_id', user_id) */
-    return rep.send({ res })
-  } catch (err) {
-    console.log(err)
-  }  
+  const { user_id } = req.params
+  
+  const id = await SelectCartId(db, parseInt(user_id, 10))
+  
+  const res = await db('cart_items')
+  .select('*')
+  .where('cart_id', id[0].cart_id)
+  
+  return rep.code(200).send(res)
 }
-
-
-/*
-{
-  product_id,
-  quantity
-}
-*/
-
-/*
-CREATE TABLE cart(
-  cart_id serial primary key,
-  user_id integer not null ON DELETE CASCADE,
-  item_id integer not null ON DELETE CASCADE,
-  item_quantity integer not null default 1 check (item_quantity > 0),
-  created_at TIMESTAMPZ not null default now(),
-  updated_at TIMESTAMPZ not null default now(),
-
-  CONSTRAINT unique_user_item UNIQUE (user_id, cart_id)
-);
-CREATE INDEX idx_item_quantity ON cart(item_quantity);
-CREATE INDEX idx_item_id ON cart(item_id);
-CREATE INDEX idx_user_id ON cart(user_id);
-
-*/

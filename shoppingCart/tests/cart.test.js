@@ -14,7 +14,7 @@ describe('CRUD Cart', () => {
   it('Create Cart/Add First Item', { skip: true }, async () => {
     const res = await server.inject({
       method: 'POST',
-      url: '/cart',
+      url: '/cart/create',
       payload: {
         user_id: 3,
         product_id: 15,
@@ -23,17 +23,51 @@ describe('CRUD Cart', () => {
     })
     assert.strictEqual(res.statusCode, 201, "should've returned code 201")
   })
+  
+  it('Read cart', { skip: false }, async () => {
+    const res = await server.inject({
+      method: 'GET',
+      url: '/cart/3'
+    })
+    assert.strictEqual(res.statusCode, 200, "should've returned code 200")
+  })
 
-  it('Update Product Quantity', async () => {
+  it('Update Product Quantity', { skip: false }, async () => {
     const res = await server.inject({
       method: 'PUT',
-      url: '/cart',
+      url: '/cart/update',
       payload: { // user_id, product_id, quantity
         user_id: 3,
         product_id: 15,
-        quantity: 2
+        quantity: 1
       }
     })
     assert.strictEqual(res.statusCode, 200, "should've returned code 200")
+  })
+  
+  it('Add New Product to Cart', { skip: true }, async () => {
+    const res = await server.inject({
+      method: 'POST',
+      url: '/cart/add',
+      payload: { // user_id, product_id, quantity
+        user_id: 3,
+        product_id: 16,
+        quantity: 1
+      }
+    })
+    assert.strictEqual(res.statusCode, 201, "should've returned code 201")
+  })
+  
+  it('Create a new cart while another one already exists returns 401', { skip: false }, async () => {
+    const res = await server.inject({
+      method: 'POST',
+      url: '/cart/create',
+      payload: { // user_id, product_id, quantity
+        user_id: 3,
+        product_id: 16,
+        quantity: 1
+      }
+    })
+    assert.strictEqual(res.statusCode, 401, "should've returned code 401")
   })
 })
