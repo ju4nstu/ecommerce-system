@@ -1,11 +1,12 @@
 import fastify from "fastify"
+import CartRoutes from "./routes/cart.routes.js"
+import { DefaultErrorHanlder } from "../errorHandler/errors.js"
 
 export default function Build() {
   const app = fastify()
-
-  app.get('/', (req, rep) => {
-    rep.send('hello world!')
-  })
+  DefaultErrorHanlder(app)
+  
+  app.register(CartRoutes)
 
   return app
 }
