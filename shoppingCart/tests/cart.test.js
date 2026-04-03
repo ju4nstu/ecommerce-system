@@ -24,13 +24,16 @@ describe('CRUD Cart', () => {
     assert.strictEqual(res.statusCode, 201, "should've returned code 201")
   })
 
-  it('Increment Product Quantity', async () => {
+  it('Update Product Quantity', async () => {
     const res = await server.inject({
       method: 'PUT',
       url: '/cart',
-      payload: {
-        
+      payload: { // user_id, product_id, quantity
+        user_id: 3,
+        product_id: 15,
+        quantity: 2
       }
     })
+    assert.strictEqual(res.statusCode, 200, "should've returned code 200")
   })
 })

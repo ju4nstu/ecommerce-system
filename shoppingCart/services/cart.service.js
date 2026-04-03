@@ -31,13 +31,24 @@ export async function AddNewItem(req, rep) {
 
 
 export async function UpdateCart(req, rep) {
-  const { user_id, item_quantity } = req.body
+  const { user_id, product_id, quantity } = req.body
 
-  await db('cart')
-  .where('user_id', user_id)
-  .update({ item_quantity: item_quantity })
+  try {
+    await db.transaction(async trx => {
+      const id = await db('cart')
+      .select('cart_id')
+      .where('user_id', user_id)
+  
+      await db('cart_items')
+      .where('cart_id', id[0].cart_id)
+      .andWhere('product_id', product_id)
+      .update({ quantity })
+    })
+    return rep.send({ message: 'Cart updated!' })
+  } catch (err) {
+    console.log(err)
+  }
 
-  return rep.send({ message: 'Cart updated!' })
 }
 
 export async function RemoveFromCart(req, rep) {
