@@ -106,8 +106,6 @@ ecommerce-system/
 │   ├── config/           # Database configuration
 │   └── tests/            # Product tests
 ├── shoppingCart/         # Shopping cart service (in progress)
-│   ├── services/
-│   └── routes/
 ├── orders/               # Order management (in progress)
 ├── payment/              # Payment processing (in progress)
 ├── notification/         # Email notifications (in progress)
