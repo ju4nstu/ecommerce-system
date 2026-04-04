@@ -12,3 +12,5 @@
 
 ## 4. Delete
 *4.1 - Where should the delete options go? Requisition params? Requisition queries? I'm currently using req params (/:product_id/:user_id)  
+
+NEED TO ADD SOME KIND OF AUTHORIZATION FOR THE REQ PARAMS ROUTES

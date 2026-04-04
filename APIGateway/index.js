@@ -16,6 +16,12 @@ server.register(httpProxy, {
   rewritePrefix: '/products'
 })
 
+server.register(httpProxy, {
+  upstream: process.env.CART_API_URL,
+  prefix: '/cart',
+  rewritePrefix: '/cart'
+})
+
 server.listen({
   port
 }).then(console.log(`server listening on port ${port}`))
