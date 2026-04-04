@@ -10,6 +10,6 @@ export default function CartRoutes(server, opts) {
   server.post('/cart/create', CreateCart)
   server.get('/cart/:user_id', ListItems)
   server.put('/cart/update', UpdateCart)
-  server.delete('/cart', RemoveFromCart)
+  server.delete('/cart/:product_id/:user_id', RemoveFromCart)
   server.post('/cart/add', AddNewItem)
 }
