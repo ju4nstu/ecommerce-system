@@ -23,8 +23,12 @@ export class AppError extends Error {
     return new AppError('Invalid crendentials', 401)
   }
 
-  static VIOLATES_UNIQUE_CONSTRAINT(name) {
+  static AUTH_VIOLATES_UNIQUE_CONSTRAINT(name) {
     return new AppError(`${name} is already in use`, 401)
+  }
+  
+  static CART_VIOLATES_UNIQUE_CONSTRAINT() {
+    return new AppError(`This user's cart has not expired yet. Thus you can't create another one`, 401)
   }
 
   static UNAUTHORIZED() {
@@ -34,4 +38,5 @@ export class AppError extends Error {
   static NOT_FOUND() {
     return new AppError('Nothing was found', 404)
   }
+
 }
